@@ -23,6 +23,63 @@
 
 ## Description
 
+Minerva API Service - Microservicio NestJS con PostgreSQL (Neon.tech)
+
+## Environment Variables
+
+Copia `.env.example` a `.env` y configura las siguientes variables:
+
+```env
+# Database Configuration
+DB_HOST=your-neon-host
+DB_PORT=5432
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+DB_DATABASE=your-database
+DATABASE_URL=postgresql://user:password@host:port/database
+
+# Application Configuration
+PORT=3000
+NODE_ENV=development
+```
+
+## Deployment
+
+### GitHub Secrets
+Configura estos secretos en GitHub: https://github.com/ConstCodeX/minerva.api_service/settings/secrets/actions
+
+- `DB_HOST`
+- `DB_PORT`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `DB_DATABASE`
+- `DATABASE_URL`
+- `NODE_ENV`
+
+### Opciones de Deploy Gratuito:
+
+#### 1. Render.com (Recomendado)
+1. Ve a https://render.com
+2. Conecta tu repositorio de GitHub
+3. Crea un nuevo Web Service
+4. Configura las variables de entorno
+5. Deploy automático
+
+#### 2. Railway.app
+1. Ve a https://railway.app
+2. Conecta tu repositorio
+3. Configura las variables de entorno
+4. Deploy automático
+
+#### 3. Fly.io
+```bash
+flyctl launch
+flyctl secrets set DB_HOST=... DB_PASSWORD=...
+flyctl deploy
+```
+
+## Description Original
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Project setup
