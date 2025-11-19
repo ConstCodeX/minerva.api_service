@@ -37,4 +37,63 @@ export class NewsRepository {
     // Ejecuta la consulta RAW (JOINS)
     return this.articlesRepository.query(query);
   }
+
+  async findTopics(category?: string, priority?: string): Promise<any[]> {
+    let query = `
+      SELECT
+        id,
+        title,
+        summary,
+        main_image_url,
+        priority,
+        category,
+        article_links,
+        created_at
+      FROM topics
+      WHERE 1=1
+    `;
+    
+    const params: any[] = [];
+    
+    if (category) {
+      params.push(category);
+      query += ` AND category = $${params.length}`;
+    }
+    
+    if (priority) {
+      params.push(parseInt(priority));
+      query += ` AND priority = $${params.length}`;
+    }
+    
+    query += ` ORDER BY priority ASC, created_at DESC LIMIT 100;`;
+    
+    return this.articlesRepository.query(query, params);
+  }
+
+  async findTopicsByPriority(priorities: number[], category?: string): Promise<any[]> {
+    let query = `
+      SELECT
+        id,
+        title,
+        summary,
+        main_image_url,
+        priority,
+        category,
+        article_links,
+        created_at
+      FROM topics
+      WHERE priority = ANY($1)
+    `;
+    
+    const params: any[] = [priorities];
+    
+    if (category) {
+      params.push(category);
+      query += ` AND category = $${params.length}`;
+    }
+    
+    query += ` ORDER BY priority ASC, created_at DESC LIMIT 100;`;
+    
+    return this.articlesRepository.query(query, params);
+  }
 }

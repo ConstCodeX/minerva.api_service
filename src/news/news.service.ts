@@ -28,4 +28,75 @@ export class NewsService {
         datos: formattedData
     };
   }
+
+  async obtenerTopics(category?: string, priority?: string) {
+    const rawData = await this.newsRepository.findTopics(category, priority);
+    
+    const formattedData = rawData.map((row, index) => ({
+      numero: index + 1,
+      topic: {
+        id: row.id,
+        titulo: row.title,
+        resumen: row.summary,
+        imagen_principal: row.main_image_url,
+        prioridad: row.priority,
+        categoria: row.category,
+        articulos: row.article_links || [],
+        fecha_creacion: row.created_at,
+      },
+    }));
+    
+    return {
+      total_resultados: formattedData.length,
+      datos: formattedData,
+    };
+  }
+
+  async obtenerTopicsPrioritarios(category?: string) {
+    // Prioridad 1 y 2 para la sección "Hoy"
+    const rawData = await this.newsRepository.findTopicsByPriority([1, 2], category);
+    
+    const formattedData = rawData.map((row, index) => ({
+      numero: index + 1,
+      topic: {
+        id: row.id,
+        titulo: row.title,
+        resumen: row.summary,
+        imagen_principal: row.main_image_url,
+        prioridad: row.priority,
+        categoria: row.category,
+        articulos: row.article_links || [],
+        fecha_creacion: row.created_at,
+      },
+    }));
+    
+    return {
+      total_resultados: formattedData.length,
+      datos: formattedData,
+    };
+  }
+
+  async obtenerTopicsCompletos(category?: string) {
+    // Prioridad 3 y 4 para el listado completo
+    const rawData = await this.newsRepository.findTopicsByPriority([3, 4], category);
+    
+    const formattedData = rawData.map((row, index) => ({
+      numero: index + 1,
+      topic: {
+        id: row.id,
+        titulo: row.title,
+        resumen: row.summary,
+        imagen_principal: row.main_image_url,
+        prioridad: row.priority,
+        categoria: row.category,
+        articulos: row.article_links || [],
+        fecha_creacion: row.created_at,
+      },
+    }));
+    
+    return {
+      total_resultados: formattedData.length,
+      datos: formattedData,
+    };
+  }
 }
