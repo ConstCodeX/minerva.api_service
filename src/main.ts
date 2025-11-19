@@ -44,7 +44,7 @@ export default async (req, res) => {
   const app = await NestFactory.create(AppModule);
   
   const allowedOrigins = [
-    'https://mef-front.vercel.app',
+    'https://minerva-frontend-six.vercel.app',
     'http://localhost:3000',
     'http://localhost:8080',
   ];
