@@ -70,7 +70,7 @@ export class NewsRepository {
     return this.articlesRepository.query(query, params);
   }
 
-  async findTopicsByPriority(priorities: number[], category?: string): Promise<any[]> {
+  async findTopicsByPriority(priorities: number[], category?: string, last24Hours?: boolean): Promise<any[]> {
     let query = `
       SELECT
         id,
@@ -86,6 +86,11 @@ export class NewsRepository {
     `;
     
     const params: any[] = [priorities];
+    
+    // Filtrar por últimas 24 horas si se especifica
+    if (last24Hours) {
+      query += ` AND created_at >= NOW() - INTERVAL '24 hours'`;
+    }
     
     if (category) {
       params.push(category);

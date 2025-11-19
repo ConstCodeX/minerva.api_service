@@ -52,9 +52,9 @@ export class NewsService {
     };
   }
 
-  async obtenerTopicsPrioritarios(category?: string) {
+  async obtenerTopicsPrioritarios(category?: string, last24Hours: boolean = false) {
     // Prioridad 1 y 2 para la sección "Hoy"
-    const rawData = await this.newsRepository.findTopicsByPriority([1, 2], category);
+    const rawData = await this.newsRepository.findTopicsByPriority([1, 2], category, last24Hours);
     
     const formattedData = rawData.map((row, index) => ({
       numero: index + 1,
@@ -76,9 +76,9 @@ export class NewsService {
     };
   }
 
-  async obtenerTopicsCompletos(category?: string) {
+  async obtenerTopicsCompletos(category?: string, last24Hours: boolean = false) {
     // Prioridad 3 y 4 para el listado completo
-    const rawData = await this.newsRepository.findTopicsByPriority([3, 4], category);
+    const rawData = await this.newsRepository.findTopicsByPriority([3, 4], category, last24Hours);
     
     const formattedData = rawData.map((row, index) => ({
       numero: index + 1,

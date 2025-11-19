@@ -31,9 +31,14 @@ export class NewsController {
   }
 
   @Get('topics/today')
-  async getTodayTopics(@Query('category') category?: string) {
+  async getTodayTopics(
+    @Query('category') category?: string,
+    @Query('recent') recent?: string,
+  ) {
     // Topics prioritarios (prioridad 1 y 2) para "Hoy"
-    const data = await this.newsService.obtenerTopicsPrioritarios(category);
+    // Si recent=true, filtrar últimas 24 horas
+    const last24Hours = recent === 'true';
+    const data = await this.newsService.obtenerTopicsPrioritarios(category, last24Hours);
     
     return {
       status: "success",
@@ -43,9 +48,14 @@ export class NewsController {
   }
 
   @Get('topics/all')
-  async getAllTopics(@Query('category') category?: string) {
+  async getAllTopics(
+    @Query('category') category?: string,
+    @Query('recent') recent?: string,
+  ) {
     // Todos los topics (prioridad 3 y 4) para el listado completo
-    const data = await this.newsService.obtenerTopicsCompletos(category);
+    // Si recent=true, filtrar últimas 24 horas
+    const last24Hours = recent === 'true';
+    const data = await this.newsService.obtenerTopicsCompletos(category, last24Hours);
     
     return {
       status: "success",
