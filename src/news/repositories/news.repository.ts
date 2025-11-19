@@ -101,4 +101,24 @@ export class NewsRepository {
     
     return this.articlesRepository.query(query, params);
   }
+
+  async findTopicById(topicId: number): Promise<any> {
+    const query = `
+      SELECT
+        id,
+        title,
+        summary,
+        main_image_url,
+        priority,
+        category,
+        article_links,
+        created_at
+      FROM topics
+      WHERE id = $1
+      LIMIT 1;
+    `;
+    
+    const result = await this.articlesRepository.query(query, [topicId]);
+    return result.length > 0 ? result[0] : null;
+  }
 }

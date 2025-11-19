@@ -99,4 +99,23 @@ export class NewsService {
       datos: formattedData,
     };
   }
+
+  async obtenerTopicPorId(topicId: number) {
+    const rawData = await this.newsRepository.findTopicById(topicId);
+    
+    if (!rawData) {
+      return null;
+    }
+    
+    return {
+      id: rawData.id,
+      titulo: rawData.title,
+      resumen: rawData.summary,
+      imagen_principal: rawData.main_image_url,
+      prioridad: rawData.priority,
+      categoria: rawData.category,
+      articulos: rawData.article_links || [],
+      fecha_creacion: rawData.created_at,
+    };
+  }
 }

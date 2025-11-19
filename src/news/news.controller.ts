@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Param } from '@nestjs/common';
 import { NewsService } from './news.service';
 
 @Controller('news')
@@ -61,6 +61,25 @@ export class NewsController {
       status: "success",
       message: "Topics completos obtenidos con éxito",
       ...data
+    };
+  }
+
+  @Get('topics/:id')
+  async getTopicById(@Param('id') id: string) {
+    const data = await this.newsService.obtenerTopicPorId(parseInt(id));
+    
+    if (!data) {
+      return {
+        status: "error",
+        message: "Topic no encontrado",
+        datos: null
+      };
+    }
+    
+    return {
+      status: "success",
+      message: "Topic obtenido con éxito",
+      datos: data
     };
   }
 }
