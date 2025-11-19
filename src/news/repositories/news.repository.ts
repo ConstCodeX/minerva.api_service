@@ -27,6 +27,7 @@ export class NewsRepository {
         authors AS T ON A.author_id = T.id
       LEFT JOIN
         images AS I ON A.id = I.article_id
+      WHERE A."source" != 'wayra'
       GROUP BY
         A.id, T.name
       ORDER BY
