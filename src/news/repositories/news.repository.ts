@@ -47,6 +47,11 @@ export class NewsRepository {
         main_image_url,
         priority,
         category,
+        subcategory,
+        topic_theme,
+        country,
+        tags,
+        event_date,
         article_links,
         created_at
       FROM topics
@@ -79,6 +84,11 @@ export class NewsRepository {
         main_image_url,
         priority,
         category,
+        subcategory,
+        topic_theme,
+        country,
+        tags,
+        event_date,
         article_links,
         created_at
       FROM topics
@@ -111,6 +121,11 @@ export class NewsRepository {
         main_image_url,
         priority,
         category,
+        subcategory,
+        topic_theme,
+        country,
+        tags,
+        event_date,
         article_links,
         created_at
       FROM topics
