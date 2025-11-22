@@ -19,12 +19,12 @@ import { NewsModule } from './news/news.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       synchronize: false, // ¡No usar true en producción!
-      ssl: true, // Habilitar SSL para Neon.tech
-      extra: {
+      ssl: process.env.DB_HOST !== 'localhost', // Solo SSL para bases de datos remotas
+      extra: process.env.DB_HOST !== 'localhost' ? {
         ssl: {
           rejectUnauthorized: false // Requerido por Neon.tech
         }
-      },
+      } : {},
       // Especifica dónde están tus entidades (Models/Entities)
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),

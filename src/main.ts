@@ -7,8 +7,11 @@ async function bootstrap() {
   // --- CONFIGURACIÓN DE CORS ---
   const allowedOrigins = [
     'https://mef-front.vercel.app', // 1. Origen de Producción (Vercel)
-    'http://localhost:3000',        // 2. Origen de Desarrollo Común
-    'http://localhost:8080',        // 3. Otros posibles puertos de desarrollo (opcional)
+    'https://minerva-frontend-six.vercel.app', // 2. Origen de Producción (Minerva)
+    'http://localhost:3000',        // 3. Origen de Desarrollo Común
+    'http://localhost:5173',        // 4. Vite dev server (frontend local)
+    'http://localhost:5174',        // 5. Vite dev server alternate port
+    'http://localhost:8080',        // 6. Otros posibles puertos de desarrollo (opcional)
   ];
 
   app.enableCors({
@@ -46,6 +49,7 @@ export default async (req, res) => {
   const allowedOrigins = [
     'https://minerva-frontend-six.vercel.app',
     'http://localhost:3000',
+    'http://localhost:5173',
     'http://localhost:8080',
   ];
 
